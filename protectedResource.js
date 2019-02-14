@@ -36,13 +36,7 @@ var getAccessToken = function(req, res, next) {
 	
 	console.log('Incoming token: %s', inToken);
 
-	nosql.find().make(function(filter) {
-		filter.where('age', '>', 20);
-		filter.where('removed', false);
-		filter.callback(function(err, response) {
-			console.log(err, response);
-		});
-	});
+
 	
 	nosql.one(function(token) {
 		if (token.access_token == inToken) {
@@ -56,7 +50,7 @@ var getAccessToken = function(req, res, next) {
 		} else {
 			console.log('No matching token was found.');
 		}
-		req.xavi = 20;
+		
 		req.access_token = token;
 		next();
 		return;
